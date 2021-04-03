@@ -1,4 +1,5 @@
 # C Course
+# C for Everyone: Programming Fundamentals
 
 # Description
 Files and Scripts developed in course C on the Coursera platform taught by instructor Ira Phol. This is the first in the Coding for Everyone: C and C ++ specialized program and is offered by the University of California at Santa Cruz.   
