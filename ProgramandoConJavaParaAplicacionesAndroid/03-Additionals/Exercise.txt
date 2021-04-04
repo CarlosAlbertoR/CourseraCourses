@@ -1,0 +1,4 @@
+Netflix con Arraylist
+
+1.    Utiliza el programa anterior para implementar la clase ArrayList en lugar de manejar el Arreglo de Objetos. 
+2.    Analiza el programa para cachar posibles eventos inesperados que pudieran ocurrir durante el programa e implementa las Excepciones necesarias. 

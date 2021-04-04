@@ -1,0 +1,396 @@
+//Netflix.java
+package com.carlosalbertor.netflix;
+
+import java.util.ArrayList;
+
+//Carlos Alberto Ríos 
+public class Netflix {
+
+	public static void main(String[] args) {
+		//Declaración de ArrayList
+		ArrayList<Pelicula> pelicula = new ArrayList<Pelicula>();
+		ArrayList<Serie> serie = new ArrayList<Serie>();
+		
+		cargaDatos(pelicula, serie);
+		//impresionDatos(pelicula, serie); //Muetra todas las peliculas y series con sus respectivos datos (Descomentar para usar)
+		marcarVistos(pelicula, serie);
+		mostrarVistos(pelicula, serie);
+		serieConMasTemporadas(serie);	
+		peliculaMasReciente(pelicula);
+	}
+	
+	public static void cargaDatos(ArrayList<Pelicula> pelicula, ArrayList<Serie> serie) {
+				
+		//Llenado de los arreglos
+		pelicula.add(new Pelicula("Jigsaw: el juego continúa", "Michael Spierig, Peter Spierig"));
+		pelicula.add(new Pelicula());
+		pelicula.add(new Pelicula("Mujer Maravilla","Acción/Bélico", 2.5, "Patty Jenkins", 2017));
+		pelicula.add(new Pelicula("Maestros de la Estafa","Romance/Drama", 1.75, "Glenn Ficarra, John Requa", 2015));
+		pelicula.add(new Pelicula("Misión de rescate","Acción", 2.0, "Sam Hargrave", 2019));
+				
+		serie.add(new Serie());
+		serie.add(new Serie("Control Z","Alejandro Lozano; Bernardo de la Rosa"));
+		serie.add(new Serie("Dark", "Misterio", 23.0, "‎Baran bo Odar‎; Jantje Friese", 3));
+		serie.add(new Serie("El robo del siglo", "Drama"));
+		serie.add(new Serie("The Walking Dead", "Terror", 103.9, "‎Frank Darabont", 10));
+	}
+	
+	public static void impresionDatos(ArrayList<Pelicula> pelicula, ArrayList<Serie> serie) {
+		System.out.println();
+		System.out.println("=====================================================================================");
+		//Muestra de los datos de los ArrayList
+		System.out.println("PELÍCULAS");
+		try {
+			for (int i=0; i<=pelicula.size(); i++) {
+				System.out.println();
+				pelicula.get(i).mostrarDatos("Película "+(i+1));
+			}
+		}catch (IndexOutOfBoundsException e) {
+			System.out.println();
+			System.out.println("Esta intentando consultar más datos de los existentes!");
+		}finally {
+			System.out.println("Impresión de películas completa.");
+		}
+		
+				
+		System.out.println();
+		System.out.println("=====================================================================================");
+		System.out.println("SERIES");
+		try {
+			for (int i=0; i<=serie.size(); i++) {
+				System.out.println();
+				serie.get(i).mostrarDatos("Serie "+(i+1));
+			}
+		}catch (IndexOutOfBoundsException e) {
+			System.out.println();
+			System.out.println("Esta intentando consultar más datos de los existentes!");
+		}finally {
+			System.out.println("Impresión de series completa.");
+		}
+		
+	}
+	
+	public static void marcarVistos(ArrayList<Pelicula> pelicula, ArrayList<Serie> serie) {
+		//Marcar series y peliculas como vistas
+		//Peliculas
+		//La vieja guardia
+		pelicula.get(1).marcarVisto();
+				
+		//Misión de rescate
+		pelicula.get(4).marcarVisto();
+		
+		//Series
+		//Dark
+		serie.get(2).marcarVisto();
+		
+		//El robo del siglo
+		serie.get(3).marcarVisto();
+	}
+	
+	public static void mostrarVistos(ArrayList<Pelicula> pelicula, ArrayList<Serie> serie) {
+		System.out.println();
+		System.out.println("=====================================================================================");
+		//Muestra de los datos de las peliculas vistas
+		System.out.println("PELICULAS VISTAS");
+		try {
+			for (int i=0; i<=pelicula.size(); i++) {
+				if(pelicula.get(i).esVisto()==true) {
+					System.out.println();
+					pelicula.get(i).mostrarDatos("Pelicula "+(i+1));
+					pelicula.get(i).tiempoVisto();
+				}
+			}
+		}catch (IndexOutOfBoundsException e) {
+			System.out.println();
+			System.out.println("Esta intentando consultar más datos de los existentes!");
+		}finally {
+			System.out.println("Impresión de películas vistas completa.");
+		}
+				
+		System.out.println();
+		System.out.println("=====================================================================================");
+		System.out.println("SERIES VISTAS");
+		try {
+			for (int i=0; i<=serie.size(); i++) {
+				if(serie.get(i).esVisto()==true) {
+					System.out.println();
+					serie.get(i).mostrarDatos("Serie "+(i+1));
+					serie.get(i).tiempoVisto();
+				}
+			}
+		}catch (IndexOutOfBoundsException e) {
+			System.out.println();
+			System.out.println("Esta intentando consultar más datos de los existentes!");
+		}finally {
+			System.out.println("Impresión de series vistas completa.");
+		}
+		
+	}
+	
+	public static void serieConMasTemporadas(ArrayList<Serie> serie) {
+		int temp = 0;
+		int a = 0;
+		String nombre = "";
+		System.out.println();
+		System.out.println("=====================================================================================");
+		System.out.println("SERIE CON MÁS TEMPORADAS");
+		try {
+			for (int i=0; i<=serie.size(); i++) {
+				if(serie.get(i).getnTemporadas() > temp) {
+					temp = serie.get(i).getnTemporadas();
+					nombre = serie.get(i).getTitulo();
+					a = i;
+				}
+			}
+		}catch (IndexOutOfBoundsException e) {
+			System.out.println();
+			System.out.println("Esta intentando consultar más datos de los existentes!");
+		}finally {
+			System.out.println("Impresión de la serie con más temporadas completa.");
+		}
+		System.out.println("");
+		System.out.println("La serie con más temporadas es " + nombre + " con " + temp + " temporadas");
+		serie.get(a).mostrarDatos("");
+	}
+	
+	public static void peliculaMasReciente(ArrayList<Pelicula> pelicula) {
+		int temp = 0;
+		int a = 0;
+		String nombre = "";
+		System.out.println();
+		System.out.println("=====================================================================================");
+		System.out.println("PELICULA MÁS RECIENTE");
+		try {
+			for (int i=0; i<=pelicula.size(); i++) {
+				if(pelicula.get(i).getAño() > temp) {
+					temp = pelicula.get(i).getAño();
+					nombre = pelicula.get(i).getTitulo();
+					a = i;
+				}
+			}
+		}catch (IndexOutOfBoundsException e) {
+			System.out.println();
+			System.out.println("Esta intentando consultar más datos de los existentes!");
+		}finally {
+			System.out.println("Impresión de la película más reciente completa.");
+		}
+		System.out.println("");
+		
+		System.out.println("La pelicula del año más reciente es " + nombre + " lanzada en " + temp);
+		pelicula.get(a).mostrarDatos("");
+	}
+}
+
+
+
+//Contenido.java
+package com.carlosalbertor.netflix;
+
+public class Contenido {
+	private String titulo;
+	private String genero;
+	private double duración; //En horas
+	private String creador;
+	private boolean visto = false;
+	
+	//Constructor
+	public Contenido(String titulo, String genero, double duración, String creador, boolean visto) {
+		this.titulo = titulo;
+		this.genero = genero;
+		this.duración = duración;
+		this.creador = creador;
+		this.visto = visto;
+	}
+
+	//Getter and Setter
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+	public double getDuración() {
+		return duración;
+	}
+
+	public void setDuración(double duración) {
+		this.duración = duración;
+	}
+
+	public String getCreador() {
+		return creador;
+	}
+
+	public void setCreador(String creador) {
+		this.creador = creador;
+	}	
+	
+	public boolean isVisto() {
+		return visto;
+	}
+
+	public void setVisto(boolean visto) {
+		this.visto = visto;
+	}
+
+	//Imprimir datos
+	public void mostrarDatos(String nombreClase) {
+		System.out.println(nombreClase);
+		System.out.println("Título: "+titulo);
+		System.out.println("Género: "+genero);
+		System.out.println("Duración: "+duración+" Horas");
+		System.out.println("Creador: "+creador);
+		if(visto == true) {
+			System.out.println("Estado: Visto");
+		}else {
+			System.out.println("Estado: No Visto");
+		}
+	}
+}
+
+
+//Pelicula.java
+package com.carlosalbertor.netflix;
+
+public class Pelicula extends Contenido implements IVisualizable{
+	private int año;
+	
+	//Constructores
+	public Pelicula() {
+		super("La vieja guardia", "Acción/Fantasía", 2.1, "Gina Prince-Bythewood", false);
+		this.año = 2020;
+	}
+	
+	public Pelicula(String titulo, String creador) {
+		super(titulo, "Terror", 2.0, creador, false);
+		this.año = 2017;
+	}
+	
+	public Pelicula(String titulo, String genero, double duracion, String creador, int año) {
+		super(titulo, genero, duracion, creador, false);
+		this.año = año;
+	}
+	
+	//Getter and Setter
+	public int getAño() {
+		return año;
+	}
+
+	public void setAño(int año) {
+		this.año = año;
+	}
+	
+	@Override
+	public void mostrarDatos(String nombreClase) {
+		super.mostrarDatos(nombreClase);
+		System.out.println("Año: "+año);
+	}
+
+	//Interface
+	@Override
+	public void marcarVisto() {
+		this.setVisto(true);
+	}
+
+	@Override
+	public boolean esVisto() {
+		if(this.isVisto()==true) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public void tiempoVisto() {
+		int m = 0;
+		int s = 0;
+		m = (int) (this.getDuración()*60);
+		s = (int) ((this.getDuración()*60*60)-(m*60));
+		System.out.println("Tiempo Visto: "+m+" minutos "+s+" segundos");
+	}
+}
+
+
+//Serie.java
+package com.carlosalbertor.netflix;
+
+public class Serie extends Contenido implements IVisualizable{
+	private int nTemporadas = 1;
+	
+	//Constructores
+	public Serie() {
+		super("Marvel’s Agents of S.H.I.E.L.D.", "Ciencia ficción", 100.5, "Joss Whedon, Jed Whedon, Maurissa Tancharoen", false);
+		this.nTemporadas=7;
+	}
+	
+	public Serie(String titulo, String creador) {
+		super(titulo, "Ciencia ficción", 20.0, creador, false);
+		this.nTemporadas = 1;
+	}
+	
+	public Serie(String titulo, String genero, double duración, String creador, int nTemporadas) {
+		super(titulo, genero, duración, creador, false);
+		this.nTemporadas = nTemporadas;
+	}
+	
+	//Getter and Setter
+	public int getnTemporadas() {
+		return nTemporadas;
+	}
+
+	public void setnTemporadas(int nTemporadas) {
+		this.nTemporadas = nTemporadas;
+	}
+
+	@Override
+	public void mostrarDatos(String nombreClase) {
+		// TODO Auto-generated method stub
+		super.mostrarDatos(nombreClase);
+		System.out.println("Número de Temporadas: "+nTemporadas);
+	}
+	
+	@Override
+	public void marcarVisto() {
+		this.setVisto(true);
+	}
+
+	//Interface
+	@Override
+	public boolean esVisto() {
+		if(this.isVisto()==true) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public void tiempoVisto() {
+		int m = 0;
+		int s = 0;
+		m = (int) (this.getDuración()*60);
+		s = (int) ((this.getDuración()*60*60)-(m*60));
+		System.out.println("Tiempo Visto: "+m+" minutos "+s+" segundos");
+	}
+}
+
+
+//IVisualizable.java
+package com.carlosalbertor.netflix;
+
+public interface IVisualizable {
+	public void marcarVisto();
+	public boolean esVisto();
+	public void tiempoVisto();
+}
